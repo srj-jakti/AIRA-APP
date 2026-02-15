@@ -85,7 +85,8 @@ class RazorpayService {
           currency: 'INR',
           status: 'created',
           planId: plan.id,
-          planName: plan.name
+          planName: plan.name,
+          receipt: `receipt_${Date.now()}`
         }
       });
 
@@ -207,7 +208,7 @@ class RazorpayService {
   async handlePaymentFailure(
     orderId: string,
     errorCode?: string,
-    errorDescription?: string
+    errorMessage?: string
   ): Promise<void> {
     try {
       await prisma.payment.update({
@@ -215,7 +216,7 @@ class RazorpayService {
         data: {
           status: 'failed',
           errorCode,
-          errorDescription
+          errorMessage
         }
       });
     } catch (error) {

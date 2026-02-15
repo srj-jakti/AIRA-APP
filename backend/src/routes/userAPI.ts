@@ -140,13 +140,13 @@ router.post('/user-api/:userId/test', async (req: Request, res: Response) => {
       });
     }
 
-    // Decrypt credentials
+    // Decrypt credentials (handle nullable fields)
     const credentials = {
       apiKey: userAPI.apiKey,
       apiSecret: decrypt(userAPI.apiSecret),
-      totpSecret: decrypt(userAPI.totpSecret),
-      userId: userAPI.zerodhaUserId,
-      password: decrypt(userAPI.password),
+      totpSecret: userAPI.totpSecret ? decrypt(userAPI.totpSecret) : '',
+      userId: userAPI.zerodhaUserId || '',
+      password: userAPI.password ? decrypt(userAPI.password) : '',
     };
 
     // Create client and test connection

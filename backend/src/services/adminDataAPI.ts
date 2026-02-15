@@ -55,6 +55,7 @@ export class AdminDataAPIManager {
       const encryptedApiSecret = this.encrypt(credentials.apiSecret);
       const encryptedTotpSecret = this.encrypt(credentials.totpSecret);
       const encryptedPassword = this.encrypt(credentials.password);
+      const encryptedLoginId = this.encrypt(credentials.userId); // Use userId as loginId
 
       // Save to database
       const adminAPI = await prisma.adminDataAPI.create({
@@ -62,6 +63,7 @@ export class AdminDataAPIManager {
           apiKey: credentials.apiKey,
           apiSecret: encryptedApiSecret,
           totpSecret: encryptedTotpSecret,
+          loginId: encryptedLoginId,
           userId: credentials.userId,
           password: encryptedPassword,
           isActive: true,

@@ -449,7 +449,7 @@ _Need more help? Visit the AIRA web app or contact support._
       return {
         userId: user.id,
         chatId: chatId.toString(),
-        language: user.language,
+        language: (user.language === 'hi' ? 'hi' : 'en') as 'en' | 'hi',
       };
     } catch (error) {
       console.error('Failed to authenticate user:', error);
