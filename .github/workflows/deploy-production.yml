@@ -1,0 +1,88 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Test Frontend
+        working-directory: ./frontend
+        run: |
+          npm ci
+          npm run lint
+          npx tsc --noEmit
+          npm test --if-present
+
+      - name: Test Backend
+        working-directory: ./backend
+        run: |
+          npm ci
+          npm run lint
+          npx tsc --noEmit
+          npm test --if-present
+        env:
+          DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+
+  deploy-frontend:
+    name: Deploy Frontend to Vercel
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: ./frontend
+
+  deploy-backend:
+    name: Deploy Backend to Railway
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Deploy to Railway
+        run: railway up --service backend
+        working-directory: ./backend
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
+  notify-deployment:
+    name: Notify Deployment Success
+    runs-on: ubuntu-latest
+    needs: [deploy-frontend, deploy-backend]
+    if: success()
+    
+    steps:
+      - name: Send notification
+        run: |
+          echo "Deployment to production successful!"
+          echo "Frontend: Vercel"
+          echo "Backend: Railway"
+          # TODO: Send Telegram/Email notification to admins

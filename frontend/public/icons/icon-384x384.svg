@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="384" height="384" viewBox="0 0 384 384" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="384" height="384" fill="#3b82f6" rx="57.599999999999994"/>
+  
+  <!-- Safe zone for maskable (if applicable) -->
+  
+  
+  <!-- AIRA Text -->
+  <text 
+    x="192" 
+    y="239.04" 
+    font-family="Arial, sans-serif" 
+    font-size="134.39999999999998" 
+    font-weight="bold" 
+    fill="white" 
+    text-anchor="middle"
+  >AIRA</text>
+  
+  <!-- AI Symbol (circuit pattern) -->
+  <g transform="translate(192, 96)">
+    <circle cx="0" cy="0" r="15.36" fill="white" opacity="0.9"/>
+    <circle cx="30.72" cy="0" r="9.600000000000001" fill="white" opacity="0.7"/>
+    <circle cx="-30.72" cy="0" r="9.600000000000001" fill="white" opacity="0.7"/>
+    <line x1="0" y1="0" x2="30.72" y2="0" stroke="white" stroke-width="3.84" opacity="0.7"/>
+    <line x1="0" y1="0" x2="-30.72" y2="0" stroke="white" stroke-width="3.84" opacity="0.7"/>
+  </g>
+  
+  <!-- Trading Chart Symbol -->
+  <g transform="translate(192, 288)">
+    <polyline 
+      points="-38.400000000000006,11.52 -19.200000000000003,-7.68 0,3.84 19.200000000000003,-11.52 38.400000000000006,7.68"
+      fill="none"
+      stroke="white"
+      stroke-width="5.76"
+      opacity="0.8"
+    />
+  </g>
+</svg>

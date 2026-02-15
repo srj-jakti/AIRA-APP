@@ -1,0 +1,13 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow private pages
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /strategy
+Disallow: /scanner
+Disallow: /analysis
+Disallow: /auth
+
+Sitemap: https://aira.trading/sitemap.xml
