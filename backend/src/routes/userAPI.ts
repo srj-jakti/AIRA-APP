@@ -252,6 +252,9 @@ router.post('/risk-settings', async (req: Request, res: Response) => {
           userId,
           dailyProfitLimit: dailyProfitLimit || 5000,
           dailyLossLimit: dailyLossLimit || 3000,
+          maxPositionSize: 50000, // Default max position size
+          maxOpenPositions: 5, // Default max open positions
+          allowedInstruments: [], // Empty array, user can configure later
           aiTradingEnabled: aiTradingEnabled || false,
         },
       });
