@@ -143,7 +143,7 @@ export class AdminDataAPIManager {
         apiKey: api.apiKey,
         apiSecret: '***', // Don't expose
         totpSecret: '***', // Don't expose
-        userId: api.userId,
+        userId: api.userId || '', // Handle nullable
         password: '***', // Don't expose
         isActive: api.isActive,
         requestCount: api.requestCount,
@@ -170,7 +170,7 @@ export class AdminDataAPIManager {
       apiKey: api.apiKey,
       apiSecret: this.decrypt(api.apiSecret),
       totpSecret: this.decrypt(api.totpSecret),
-      userId: api.userId,
+      userId: api.userId || '', // Handle nullable
       password: this.decrypt(api.password),
     };
   }

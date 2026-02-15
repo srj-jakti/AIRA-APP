@@ -257,7 +257,7 @@ export class NotificationService {
         return this.getDefaultPreferences();
       }
 
-      return user.notificationPreferences as NotificationPreferences;
+      return user.notificationPreferences as unknown as NotificationPreferences;
     } catch (error) {
       console.error('Error getting preferences:', error);
       return this.getDefaultPreferences();

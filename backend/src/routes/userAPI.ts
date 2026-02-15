@@ -37,7 +37,7 @@ router.get('/user-api/:userId', async (req: Request, res: Response) => {
         apiKey: true,
         isActive: true,
         autoLogin: true,
-        lastConnected: true,
+        lastLogin: true,
         createdAt: true,
       },
     });
